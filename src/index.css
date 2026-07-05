@@ -1,0 +1,540 @@
+/* ==========================================
+   CSS CUSTOM VARIABLES & PALETTE SETUP
+   ========================================== */
+:root {
+  --bg-main: #0b0f17;
+  --bg-card: #131a26;
+  --border-color: #1e293b;
+  
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  
+  /* State Mappings */
+  --state-initial: #64748b;
+  --state-scanning: #f59e0b;
+  --state-relaxed: #10b981;
+  --state-error: #ef4444;
+  
+  /* Styling & Transitions */
+  --radius-lg: 12px;
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Text and Fonts */
+  --text-main: #f8fafc;
+  --text-muted: #64748b;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================
+   STRUCTURE LAYOUT
+   ========================================== */
+.dev-app-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.dev-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.dev-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dev-logo-badge {
+  background: linear-gradient(135deg, var(--color-primary), #1d4ed8);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+.dev-header h1 {
+  margin: 0 0 4px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dev-system-status {
+  margin: 0;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.status-live {
+  color: var(--state-relaxed);
+  font-weight: bold;
+}
+
+.status-module {
+  color: var(--color-primary);
+}
+
+.dev-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+
+/* MAIN GRID LAYOUT */
+.dev-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .dev-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   CARD ARCHITECTURE
+   ========================================== */
+.dev-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.dev-card-header h2 {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.indicator-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--state-relaxed);
+  border-radius: 50%;
+}
+
+.blinking {
+  animation: blink 1.8s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* ==========================================
+   DROPDOWNS & CONFIG SELECTORS
+   ========================================== */
+.config-selectors {
+  display: flex;
+  gap: 8px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: var(--transition-smooth);
+}
+
+.select-wrapper select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+/* ==========================================
+   CANVAS & GRAPH DESIGN
+   ========================================== */
+.dev-canvas-viewport {
+  background-color: var(--bg-main);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dev-graph-svg {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+}
+
+/* Smooth Transitions for Canvas Elements */
+.dev-node-circle,
+.dev-edge-line,
+.dev-edge-weight-bg,
+.dev-edge-weight {
+  transition: var(--transition-smooth);
+}
+
+/* Node Custom States */
+.dev-node-circle {
+  fill: #1a2230;
+  stroke-width: 2px;
+}
+
+.node-standard {
+  stroke: var(--state-initial);
+}
+
+.node-source {
+  stroke: var(--color-primary);
+  fill: rgba(59, 130, 246, 0.15);
+}
+
+.node-active {
+  stroke: var(--state-scanning);
+  fill: rgba(245, 158, 11, 0.15);
+}
+
+.node-success {
+  stroke: var(--state-relaxed);
+  fill: rgba(16, 185, 129, 0.15);
+}
+
+.node-error {
+  stroke: var(--state-error);
+  fill: rgba(239, 68, 68, 0.15);
+}
+
+.dev-node-label {
+  fill: var(--text-main);
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.dev-node-distance {
+  fill: var(--text-muted);
+  font-size: 9px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.dev-edge-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+
+.dev-edge-weight {
+  fill: var(--text-muted);
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: bold;
+}
+
+.weight-negative {
+  fill: var(--state-scanning);
+}
+
+/* ==========================================
+   PLAYBACK & CONTROL DOCK
+   ========================================== */
+.dev-controls-container {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.01);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.playback-controls-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* Dynamic Buttons */
+.dev-btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition-smooth);
+  flex: 1;
+}
+
+.dev-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
+}
+
+.btn-secondary {
+  background-color: #1e293b;
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--border-color);
+}
+
+.btn-warn {
+  background-color: var(--state-scanning);
+  color: #000;
+}
+
+.btn-warn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Speed Slider styling */
+.speed-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.slider-value {
+  color: var(--color-primary);
+}
+
+.dev-slider {
+  width: 100%;
+  accent-color: var(--color-primary);
+  background: var(--bg-main);
+  border-radius: 4px;
+  height: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ==========================================
+   SIDEBAR & DEV TOOL CONSOLE
+   ========================================== */
+.dev-sidebar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Diagnostics Terminal */
+.dev-terminal-body {
+  background-color: #070a10;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: 16px;
+  font-family: var(--font-mono);
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.terminal-header-meta {
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.terminal-prompt {
+  display: flex;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+.prompt-symbol {
+  color: var(--color-primary);
+}
+
+.prompt-path {
+  color: var(--state-initial);
+}
+
+.terminal-output {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.log-message {
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.log-type-init { color: var(--state-initial); }
+.log-type-early-stop { color: var(--state-relaxed); }
+.log-type-completed { color: var(--state-relaxed); }
+.log-type-relax-success { color: var(--state-relaxed); }
+.log-type-relax-fail { color: var(--text-muted); }
+.log-type-relax-unreachable { color: var(--text-muted); }
+.log-type-negative-cycle-found { color: var(--state-error); }
+
+/* Register State Table */
+.dev-table-container {
+  overflow-x: auto;
+}
+
+.dev-state-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.dev-state-table th,
+.dev-state-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dev-state-table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.node-reg-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+}
+
+.reg-icon {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-muted);
+  border-radius: 1px;
+}
+
+.reg-badge-dist {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.reg-badge-dist.state-inf {
+  color: var(--text-muted);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.reg-badge-dist.state-val {
+  color: var(--color-primary);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.predecessor-cell {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.dev-row-update {
+  background-color: rgba(16, 185, 129, 0.05);
+  animation: rowFlash 0.6s ease-out;
+}
+
+@keyframes rowFlash {
+  0% { background-color: rgba(16, 185, 129, 0.15); }
+  100% { background-color: rgba(16, 185, 129, 0.05); }
+}
+
+/* Viewport Key Legend */
+.dev-legend-grid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.legend-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--text-main);
+}
+
+.legend-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+}
